@@ -12,10 +12,51 @@ For generating documentation for Matlab code, check out the
 [matlabdomain](https://github.com/sphinx-contrib/matlabdomain) Sphinx extension.
 
 ## Installation
-TODO
+
+The package can be installed using [Pip](https://pypi.org/project/sphinx-matlabdoc-builder/)
+
+```bash
+pip install sphinx-matlabdoc-builder
+```
+
+Alternatively you can download the `sphinx_matlabdoc_builder` package into your
+sphinx directory and add the local directory to the sphinx path.
 
 ## Requirements
 This package is an extension to Sphinx.
+Requires Python 3.
 
 ## Usage
-TODO
+
+To use sphinx-matlabdoc-builder, you must first install the package and add
+the extension to your sphinx `conf.py` file.  For example, add the
+`sphinx_matlabdoc_builder` extension to the end of your extension list:
+
+```python
+extensions = [
+    'sphinx.ext.mathjax',
+    'sphinx.ext.githubpages',
+    'sphinx_matlabdoc_builder',
+]
+```
+
+Then compile the source with
+
+```bash
+make matlabdoc
+```
+
+or if using `sphinx-build`
+
+```
+sphinx-build -M matlabdoc ./ build
+```
+
+this should generate the normal HTML output and add the `helptoc.xml`
+file to the output directory.
+
+To use the `helptoc.xml` file in your toolbox, create a new matlab
+package and click add documentation and specify the documentation
+output directory.
+If you have an existing `info.xml` file, simply change the documentation
+directory to point to the output directory containing the `helptoc.xml` file.
