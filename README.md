@@ -4,8 +4,8 @@
 
 A Sphinx extension for generating Matlab HTML docs.
 This extension builds the Sphinx project into a set of HTML
-documents and additionally generates the `info.xml` and
-`helptoc.xml` files requires for the
+documents and additionally generates the TOC `helptoc.xml` file
+required for the
 [Matlab toolbox documentation](https://au.mathworks.com/help/matlab/matlab_prog/display-custom-documentation.html)
 
 For generating documentation for Matlab code, check out the

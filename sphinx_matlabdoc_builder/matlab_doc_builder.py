@@ -40,7 +40,7 @@ class ToCTreeVisitor(nodes.NodeVisitor):
         self.depth = 0
 
     def append(self, text):
-        self.body.append(text)
+        self.body.append('  '*self.depth + text)
 
     def astext(self):
         return '\n'.join(self.body)
@@ -71,7 +71,7 @@ class ToCTreeVisitor(nodes.NodeVisitor):
 
 class MatlabDocBuilder(StandaloneHTMLBuilder):
     """
-    HTML builder that also outputs Matlab info.xml and helptoc.xml files
+    HTML builder that also outputs Matlab helptoc.xml file
     for generating Matlab documentation.
     """
     name = 'matlabdoc'
@@ -79,48 +79,19 @@ class MatlabDocBuilder(StandaloneHTMLBuilder):
 
     # don't copy the reST source
     copysource = False
-    supported_image_types = ['image/png', 'image/gif', 'image/jpeg']
 
     # don't add links
     add_permalinks = False
+
     # don't add sidebar etc.
     embedded = True
 
     # don't generate search index or include search page
     search = False
 
-    def init(self):
-        super().init()
-
     def handle_finish(self):
-        self.build_info_file()
         self.build_toc_file()
         super().handle_finish()
-
-    def build_info_file(self):
-        """Create the info.xml in outdir."""
-
-        filename = path.join(self.outdir, 'info.xml')
-
-        with open(filename, 'w', encoding='utf-8') as f:
-            f.write("""<productinfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n""")
-            f.write("""        xsi:noNamespaceSchemaLocation="optional">\n""")
-
-            f.write("""    <?xml-stylesheet type="text/xsl"href="optional"?>\n""")
-
-            f.write("    <matlabrelease>{}</matlabrelease>\n".format(
-                self.config.matlabdoc_matlabrelease))
-            f.write("    <name>{}</name>\n".format(
-                self.config.project))
-            f.write("    <type>{}</type>\n".format(
-                self.config.matlabdoc_type))
-            f.write("    <icon>{}</icon>\n".format(
-                self.config.matlabdoc_icon))
-
-            f.write("    <help_location>{}</help_location>\n".format(
-                self.outdir))
-
-            f.write("""</productinfo>\n""")
 
     def build_toc_file(self):
         """Create a ToC file helptoc.xml in outdir."""
@@ -131,6 +102,8 @@ class MatlabDocBuilder(StandaloneHTMLBuilder):
 
             f.write("""<?xml version='1.0' encoding="utf-8"?>\n""")
             f.write("""<toc version="2.0">\n""")
+            f.write('<tocitem target="{}">{}\n'.format(
+                self.config.master_doc, self.config.project))
 
             toctree = self.env.get_and_resolve_doctree(self.config.master_doc, self,
                                                        prune_toctrees=False)
@@ -139,7 +112,8 @@ class MatlabDocBuilder(StandaloneHTMLBuilder):
             for node in toctree.traverse(matcher):  # type: addnodes.compact_paragraph
                 node.walkabout(visitor)
 
-            f.write(visitor.astext())
+            f.write(visitor.astext() + '\n')
 
-            f.write("""</toc>\n""")
+            f.write('</tocitem>\n')
+            f.write('</toc>\n')
 

@@ -11,7 +11,4 @@ from .matlab_doc_builder import MatlabDocBuilder
 
 def setup(app):
     app.add_builder(MatlabDocBuilder)
-    app.add_config_value('matlabdoc_type', 'toolbox', 'html')
-    app.add_config_value('matlabdoc_icon', '', 'html')
-    app.add_config_value('matlabdoc_matlabrelease', 'R2016b', 'html')
 
