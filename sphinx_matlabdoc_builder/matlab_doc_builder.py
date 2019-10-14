@@ -103,7 +103,7 @@ class MatlabDocBuilder(StandaloneHTMLBuilder):
             f.write("""<?xml version='1.0' encoding="utf-8"?>\n""")
             f.write("""<toc version="2.0">\n""")
             f.write('<tocitem target="{}">{}\n'.format(
-                self.config.master_doc, self.config.project))
+                self.config.master_doc + '.html', self.config.project))
 
             toctree = self.env.get_and_resolve_doctree(self.config.master_doc, self,
                                                        prune_toctrees=False)
