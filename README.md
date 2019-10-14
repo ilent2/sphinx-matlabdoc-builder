@@ -13,7 +13,7 @@ For generating documentation for Matlab code, check out the
 
 ## Installation
 
-The package can be installed using [Pip](https://pypi.org/project/sphinx-matlabdoc-builder/)
+The package can be installed from [Pip](https://pypi.org/project/sphinx-matlabdoc-builder/)
 
 ```bash
 pip install sphinx-matlabdoc-builder
@@ -60,3 +60,18 @@ package and click add documentation and specify the documentation
 output directory.
 If you have an existing `info.xml` file, simply change the documentation
 directory to point to the output directory containing the `helptoc.xml` file.
+For example, on Matlab 2018a, a `info.xml` file might look something like:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<productinfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="optional"><?xml-stylesheet type="text/xsl"href="optional"?>
+   <matlabrelease>2018a</matlabrelease>
+   <name>otslm</name>
+   <type>toolbox</type>
+   <icon/>
+   <help_location>docs\_build\matlabdoc</help_location>
+   <help_contents_icon/>
+</productinfo>
+```
+
+where `help_location` specifies the path to the Sphinx output directory.
