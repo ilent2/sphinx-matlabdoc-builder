@@ -1,4 +1,8 @@
 
+# Sphinx build dir in tests
+tests/*/_build/*
+
+# Vim files
 *.swo
 *.swp
 
