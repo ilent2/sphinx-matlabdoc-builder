@@ -23,6 +23,7 @@ setup(
     maintainer_email='isaac@isuniversal.com',
     description='A Sphinx extension for generating Matlab HTML docs.',
     long_description=long_desc,
+    long_description_content_type='text/markdown',
     zip_safe=False,
     classifiers=[
         'Development Status :: 4 - Beta',
